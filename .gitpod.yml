@@ -1,0 +1,17 @@
+image:
+  file: .gitpod.Dockerfile
+tasks:
+  - name: Vnc
+    command: >
+      gp sync-await start &&
+      gp await-port 6080
+  - name: Webpack Dev Server
+    command: >
+      gp sync-done start
+ports:
+  - name: NoVNC
+    port: 6080
+    onOpen: open-preview
+  - name: Webpack Dev Server
+    port: 5900
+    onOpen: ignore
