@@ -192,7 +192,7 @@ fi
 echo Libssl version: $(/usr/bin/openssl version)
 #// Clone files from repo, Permissions and make
 
-git clone --recurse-submodules https://github.com/vergecurrency/VERGE
+git clone --recurse-submodules https://github.com/blockdudes/VERGE
 cd ~
 cd VERGE
 ./autogen.sh
