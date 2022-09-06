@@ -2389,7 +2389,7 @@
     </message>
     <message>
         <source>Enter a label for this address to add it to your address book</source>
-        <translation>Enter a label for this address to add it to your address book</translation>
+        <translation>Enter a label for this address to add it to your address book1</translation>
     </message>
 </context>
 <context>

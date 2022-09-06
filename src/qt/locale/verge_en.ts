@@ -3086,7 +3086,7 @@
     <message>
         <location filename="../sendcoinsentry.cpp" line="+36"/>
         <source>Enter a label for this address to add it to your address book</source>
-        <translation type="unfinished"></translation>
+        <translation>Enter a label for this address to add it to your address book2</translation>
     </message>
 </context>
 <context>

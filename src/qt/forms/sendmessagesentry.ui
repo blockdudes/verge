@@ -574,7 +574,7 @@ color: rgb(255, 255, 255);</string>
       <bool>true</bool>
      </property>
      <property name="toolTip">
-      <string>Enter a label for this address to add it to your address book</string>
+      <string>Enter a label for this address to add it to your address book3</string>
      </property>
      <property name="styleSheet">
       <string notr="true">background: rgb(0,0,0); color: rgb(255,255,255); border: 1px inset white; border-radius: 3px; margin: 0px;</string>
