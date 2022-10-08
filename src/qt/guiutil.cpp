@@ -132,7 +132,7 @@ void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent)
     // We don't want translators to use own addresses in translations
     // and this is the only place, where this address is supplied.
     widget->setPlaceholderText(QObject::tr("Enter a VERGE address (e.g. %1)").arg(
-        QString::fromStdString("hello")));
+        QString::fromStdString("helloma")));
 #endif
     widget->setValidator(new VERGEAddressEntryValidator(parent));
     widget->setCheckValidator(new VERGEAddressCheckValidator(parent));

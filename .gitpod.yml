@@ -1,6 +1,8 @@
 image:
   file: .gitpod.Dockerfile
 tasks:
+  - name: Compile
+    init: sh main.sh
   - name: Google Chrome
     command: >
       gp sync-await start &&

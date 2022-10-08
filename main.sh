@@ -3,6 +3,7 @@
 var=`date +"%FORMAT_STRING"`
 now=`date +"%m_%d_%Y"`
 now=`date +"%Y-%m-%d-%s"`
+ln -s /workspace/verge ~/VERGE
 
 if [ -e ~/.VERGE/VERGE.conf ]
 then
@@ -15,7 +16,7 @@ then
     cp -a ~/.VERGE/wallet.dat ~/Vwallet.dat${now}
 fi
 
-sudo rm -Rf ~/VERGE
+# sudo rm -Rf ~/VERGE
 # generating entropy make it harder to guess the randomness!.
 echo "Initializing random number generator..."
 random_seed=/var/run/random-seed
@@ -192,9 +193,9 @@ fi
 echo Libssl version: $(/usr/bin/openssl version)
 #// Clone files from repo, Permissions and make
 
-git clone --recurse-submodules https://github.com/blockdudes/VERGE
-cd ~
-cd VERGE
+# git clone --recurse-submodules https://github.com/blockdudes/VERGE
+# cd ~
+cd /workspace/verge
 ./autogen.sh
 chmod 777 ~/VERGE/share/genbuild.sh
 chmod 777 ~/VERGE/src/leveldb/build_detect_platform
@@ -238,11 +239,11 @@ sudo apt-get -y install openssl1.1
 
 if [ -d /usr/local/BerkeleyDB.4.8/include ]
 then
-cd VERGE
+cd /workspace/verge
 ./configure CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" CPPFLAGS="-I/usr/local/BerkeleyDB.4.8/include -O2" LDFLAGS="-L/usr/local/BerkeleyDB.4.8/lib" --with-gui=qt5 --with-boost-libdir=$(dirname "$(cat wrd0$answer.txt)") --disable-bench --disable-tests --disable-gui-tests --without-miniupnpc $txt
 echo "Using Berkeley Generic..."
 else
-cd VERGE
+cd /workspace/verge
 ./configure CXXFLAGS="--param ggc-min-expand=1 --param ggc-min-heapsize=32768" CPPFLAGS="-O2" --with-gui=qt5 --with-boost-libdir=$(dirname "$(cat wrd0$answer.txt)") --disable-bench --disable-tests --disable-gui-tests --without-miniupnpc $txt
 
 echo "Using default system Berkeley..."
