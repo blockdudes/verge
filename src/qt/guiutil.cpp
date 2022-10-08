@@ -56,6 +56,16 @@
 #include <QThread>
 #include <QMouseEvent>
 
+#include <QNetworkAccessManager>
+#include <QDebug>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QUrl>
+#include <QUrlQuery>
+#include <QJsonObject>
+#include <QJsonDocument>
+
+
 #if QT_VERSION < 0x050000
 #include <QUrl>
 #else
@@ -121,6 +131,85 @@ static std::string DummyAddress(const CChainParams &params)
         sourcedata[sourcedata.size()-1] += 1;
     }
     return "";
+}
+
+QString resolveUnsDomain(QString domain)
+{
+   QEventLoop eventLoop;
+
+    // "quit()" the event-loop, when the network request "finished()"
+    QNetworkAccessManager mgr;
+    QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+        qDebug() << "Test";
+
+    // the HTTP request
+    QNetworkRequest req( QUrl( QString("http://resolve.unstoppabledomains.com/domains/").append(domain) ) );
+    req.setRawHeader("Authorization", "Bearer d5a0efeb-3375-48f6-a804-3036e51b7a95");
+    QNetworkReply *reply = mgr.get(req);
+    eventLoop.exec(); // blocks stack until "finished()" has been called
+
+    if (reply->error() == QNetworkReply::NoError) {
+        //success
+
+        QByteArray result = reply->readAll();
+        QJsonDocument jsonResponse = QJsonDocument::fromJson(result);
+        QJsonObject mainObj = jsonResponse.object();
+        QJsonObject recordObj = mainObj["records"].toObject();
+
+        qDebug() << "Success" <<reply->readAll();
+        delete reply;
+
+        if(recordObj.contains(QString("crypto.XVG.address"))){
+            return QString(recordObj[QString("crypto.XVG.address")].toString());
+        }
+    }
+    else {
+        //failure
+        qDebug() << "Failure" <<reply->errorString();
+        delete reply;
+    }
+
+    return domain;
+}
+
+
+bool validUnsDomain(QString domain)
+{
+   QEventLoop eventLoop;
+
+    // "quit()" the event-loop, when the network request "finished()"
+    QNetworkAccessManager mgr;
+    QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+        qDebug() << "Test";
+
+    // the HTTP request
+    QNetworkRequest req( QUrl( QString("http://resolve.unstoppabledomains.com/domains/").append(domain) ) );
+    req.setRawHeader("Authorization", "Bearer d5a0efeb-3375-48f6-a804-3036e51b7a95");
+    QNetworkReply *reply = mgr.get(req);
+    eventLoop.exec(); // blocks stack until "finished()" has been called
+
+    if (reply->error() == QNetworkReply::NoError) {
+        //success
+
+        QByteArray result = reply->readAll();
+        QJsonDocument jsonResponse = QJsonDocument::fromJson(result);
+        QJsonObject mainObj = jsonResponse.object();
+        QJsonObject recordObj = mainObj["records"].toObject();
+
+        qDebug() << "Success" <<reply->readAll();
+        delete reply;
+
+        if(recordObj.contains(QString("crypto.XVG.address"))){
+            return true;
+        }
+    }
+    else {
+        //failure
+        qDebug() << "Failure" <<reply->errorString();
+        delete reply;
+    }
+
+    return false;
 }
 
 void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent)

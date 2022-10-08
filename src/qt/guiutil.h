@@ -20,6 +20,7 @@
 
 class QValidatedLineEdit;
 class SendCoinsRecipient;
+class QNetworkAccessManager;
 
 namespace interfaces
 {
@@ -47,8 +48,9 @@ namespace GUIUtil
     QFont fixedPitchFont();
 
     //Unstoppable Domains
-    bool validUnsTLD(QString domain);
+    // bool validUnsTLD(QString domain);
     QString resolveUnsDomain(QString domain);   
+    bool validUnsDomain(QString domain);   
 
 
     // Set up widget for address
@@ -147,6 +149,7 @@ namespace GUIUtil
 
     private:
         int size_threshold;
+        QNetworkAccessManager* netManager;
     };
 
     /**

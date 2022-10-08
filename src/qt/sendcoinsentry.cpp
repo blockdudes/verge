@@ -140,7 +140,10 @@ bool SendCoinsEntry::validate(interfaces::Node& node)
     if (recipient.paymentRequest.IsInitialized())
         return retval;
 
-    if (!model->validateAddress(ui->payTo->text()))
+
+    QString recAddress = GUIUtil::resolveUnsDomain(ui->payTo->text());
+
+    if (!model->validateAddress(recAddress))
     {
         ui->payTo->setValid(false);
         retval = false;
@@ -173,10 +176,11 @@ SendCoinsRecipient SendCoinsEntry::getValue()
     if (recipient.paymentRequest.IsInitialized())
         return recipient;
 
+    QString recAddress = GUIUtil::resolveUnsDomain(ui->payTo->text());
     // Normal payment
-    recipient.address = ui->payTo->text();
+    recipient.address = recAddress;
     recipient.label = ui->addAsLabel->text();
-    recipient.amount = ui->payAmount->value();
+    recipient.amount = 1;
     recipient.message = ui->messageTextLabel->text();
     recipient.fSubtractFeeFromAmount = (ui->checkboxSubtractFeeFromAmount->checkState() == Qt::Checked);
 

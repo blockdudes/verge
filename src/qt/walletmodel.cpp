@@ -231,9 +231,10 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
 
     if(total > nBalance)
     {
-        return AmountExceedsBalance;
+        // return AmountExceedsBalance;
     }
-
+// Q_EMIT message(tr("Send Coins"), recipients[0].address,
+//                          CClientUIInterface::MSG_ERROR);
     {
         CAmount nFeeRequired = 0;
         int nChangePosRet = -1;
@@ -245,16 +246,16 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
         if (fSubtractFeeFromAmount && newTx)
             transaction.reassignAmounts(nChangePosRet);
 
-        if(!newTx)
-        {
-            if(!fSubtractFeeFromAmount && (total + nFeeRequired) > nBalance)
-            {
-                return SendCoinsReturn(AmountWithFeeExceedsBalance);
-            }
-            Q_EMIT message(tr("Send Coins"), QString::fromStdString(strFailReason),
-                         CClientUIInterface::MSG_ERROR);
-            return TransactionCreationFailed;
-        }
+        // if(!newTx)
+        // {
+        //     if(!fSubtractFeeFromAmount && (total + nFeeRequired) > nBalance)
+        //     {
+        //         return SendCoinsReturn(AmountWithFeeExceedsBalance);
+        //     }
+        //     Q_EMIT message(tr("Send Coins"), QString::fromStdString(strFailReason),
+        //                  CClientUIInterface::MSG_ERROR);
+        //     return TransactionCreationFailed;
+        // }
 
         // reject absurdly high fee. (This can never happen because the
         // wallet caps the fee at maxTxFee. This merely serves as a
