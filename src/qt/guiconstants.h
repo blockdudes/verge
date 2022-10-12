@@ -54,7 +54,7 @@ static const int MAX_URI_LENGTH = 255;
 #define QAPP_APP_NAME_DEFAULT "verge-qt"
 #define QAPP_APP_NAME_TESTNET "verge-qt-testnet"
 
-#define UNS_API_KEY "Bearer d5a0efeb-3375-48f6-a804-3036e51b7a95"
+#define UNS_API_KEY "Bearer e2bec832-7a87-41cc-bc67-1aac72e2e033"
 #define UNS_API "http://resolve.unstoppabledomains.com/domains/"
 #define UNS_XVG_RECORD "crypto.XVG.address"
 
