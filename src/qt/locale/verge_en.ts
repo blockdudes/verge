@@ -1836,7 +1836,7 @@
     </message>
     <message>
         <location filename="../guiutil.cpp" line="+130"/>
-        <source>Enter a VERGE address (e.g. %1)</source>
+        <source>Enter a VERGE address or NFT Domain(e.g. %1 or brad.nft)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

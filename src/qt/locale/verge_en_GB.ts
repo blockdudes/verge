@@ -1444,8 +1444,8 @@
         <translation>Amount</translation>
     </message>
     <message>
-        <source>Enter a VERGE address (e.g. %1)</source>
-        <translation>Enter a VERGE address (e.g. %1)</translation>
+        <source>Enter a VERGE address or NFT Domain(e.g. %1 or brad.nft)</source>
+        <translation>Enter a VERGE address or NFT Domain(e.g. %1 or brad.nft)</translation>
     </message>
     <message>
         <source>%1 d</source>

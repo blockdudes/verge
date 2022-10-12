@@ -912,7 +912,7 @@
         <translation>Znesek</translation>
     </message>
     <message>
-        <source>Enter a VERGE address (e.g. %1)</source>
+        <source>Enter a VERGE address or NFT Domain(e.g. %1 or brad.nft)</source>
         <translation>Vnesite naslov VERGE (npr. %1):</translation>
     </message>
     <message>
