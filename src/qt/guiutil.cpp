@@ -56,6 +56,14 @@
 #include <QThread>
 #include <QMouseEvent>
 
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QJsonObject>
+#include <QJsonDocument>
+
+#include <qt/guiconstants.h>
+
 #if QT_VERSION < 0x050000
 #include <QUrl>
 #else
@@ -121,6 +129,58 @@ static std::string DummyAddress(const CChainParams &params)
         sourcedata[sourcedata.size()-1] += 1;
     }
     return "";
+}
+
+QString resolveUnsDomain(QString domain)
+{
+    bool isDomain = domain.contains(".");
+    if(isDomain){
+        QEventLoop eventLoop;
+
+        QNetworkAccessManager mgr;
+        QObject::connect(&mgr, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+
+        QNetworkRequest req(QUrl(QString(UNS_API).append(domain)));
+
+        req.setRawHeader("Authorization", UNS_API_KEY);
+        QNetworkReply *reply = mgr.get(req);
+        eventLoop.exec();
+
+        if (reply->error() == QNetworkReply::NoError) {
+            //success
+
+            QByteArray result = reply->readAll();
+            QJsonDocument jsonResponse = QJsonDocument::fromJson(result);
+            QJsonObject mainObj = jsonResponse.object();
+            QJsonObject recordObj = mainObj["records"].toObject();
+
+            delete reply;
+
+            if(recordObj.contains(QString(UNS_XVG_RECORD))){
+                return QString(recordObj[QString(UNS_XVG_RECORD)].toString());
+            }
+        }
+        else {
+            //failure
+            delete reply;
+        }
+    }
+
+    return domain;
+}
+
+
+bool validUnsDomain(QString address)
+{
+
+    QString domain = resolveUnsDomain(address);
+
+    if(domain == address){
+        return false;
+    }else{
+        return true;
+    }
+
 }
 
 void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent)
