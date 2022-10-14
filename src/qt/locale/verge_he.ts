@@ -1392,7 +1392,11 @@
         <translation>כמות</translation>
     </message>
     <message>
-        <source>Enter a VERGE address or NFT Domain(e.g. %1 or brad.nft)</source>
+        <source>Enter a VERGE address or Web3 Domain(e.g. %1 or sandy.nft)</source>
+        <translation>נא להזין כתובת ביטקוין (למשל: %1)</translation>
+    </message>
+    <message>
+        <source>Enter a VERGE address(e.g. %1)</source>
         <translation>נא להזין כתובת ביטקוין (למשל: %1)</translation>
     </message>
     <message>

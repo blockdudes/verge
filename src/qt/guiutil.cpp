@@ -133,6 +133,8 @@ static std::string DummyAddress(const CChainParams &params)
 
 QString resolveUnsDomain(QString domain)
 {
+    if(!unsEnabled()) return domain;
+
     bool isDomain = domain.contains(".");
     if(isDomain){
         QEventLoop eventLoop;
@@ -172,6 +174,7 @@ QString resolveUnsDomain(QString domain)
 
 bool validUnsDomain(QString address)
 {
+    if(!unsEnabled()) return false;
 
     QString domain = resolveUnsDomain(address);
 
@@ -183,6 +186,10 @@ bool validUnsDomain(QString address)
 
 }
 
+bool unsEnabled(){
+    return gArgs.GetBoolArg("-with-unstoppable", false);
+}
+
 void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent)
 {
     parent->setFocusProxy(widget);
@@ -191,8 +198,13 @@ void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent)
 #if QT_VERSION >= 0x040700
     // We don't want translators to use own addresses in translations
     // and this is the only place, where this address is supplied.
-    widget->setPlaceholderText(QObject::tr("Enter a VERGE address or NFT Domain(e.g. %1 or brad.nft)").arg(
-        QString::fromStdString(DummyAddress(Params()))));
+    if(unsEnabled()){
+        widget->setPlaceholderText(QObject::tr("Enter a VERGE address or Web3 Domain(e.g. %1 or sandy.nft)").arg(
+            QString::fromStdString(DummyAddress(Params()))));
+    }else{
+        widget->setPlaceholderText(QObject::tr("Enter a VERGE address(e.g. %1)").arg(
+            QString::fromStdString(DummyAddress(Params()))));
+    }
 #endif
     widget->setValidator(new VERGEAddressEntryValidator(parent));
     widget->setCheckValidator(new VERGEAddressCheckValidator(parent));
