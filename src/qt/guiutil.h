@@ -48,7 +48,6 @@ namespace GUIUtil
 
     //Unstoppable Domains
     QString resolveUnsDomain(QString domain);   
-    bool validUnsDomain(QString domain);   
     bool unsEnabled();   
 
     // Set up widget for address

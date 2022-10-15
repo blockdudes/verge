@@ -172,24 +172,10 @@ QString resolveUnsDomain(QString domain)
 }
 
 
-bool validUnsDomain(QString address)
-{
-    if(!unsEnabled()) return false;
-
-    QString domain = resolveUnsDomain(address);
-
-    if(domain == address){
-        return false;
-    }else{
-        return true;
-    }
-
-}
-
 bool unsEnabled(){
     return gArgs.GetBoolArg("-with-unstoppable", false);
 }
-
+ˀ
 void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent)
 {
     parent->setFocusProxy(widget);

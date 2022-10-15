@@ -91,10 +91,10 @@ QValidator::State VERGEAddressCheckValidator::validate(QString &input, int &pos)
 {
     Q_UNUSED(pos);
 
-    bool isValidDomainAddress = GUIUtil::validUnsDomain(input);
+    QString address = GUIUtil::resolveUnsDomain(input);
 
     // Validate the passed VERGE address
-    if (IsValidDestinationString(input.toStdString()) || isValidDomainAddress) {
+    if (IsValidDestinationString(address.toStdString())) {
         return QValidator::Acceptable;
     }
 
